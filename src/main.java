@@ -12,7 +12,7 @@ public class main {
         TriageType doctorTriageType = TriageType.FIFO;
         TriageType radiologyTriageType = TriageType.FIFO;
 
-        Clinic clinic = new Clinic();
+        Clinic clinic = new Clinic(TriageType.GRAVITY);
         clinic.triagePatient("bob", 2, VisibleSymptom.CHEST_PAIN);
 
 
