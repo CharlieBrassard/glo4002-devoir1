@@ -16,18 +16,31 @@ public class Clinic {
         this.radiologyPatients = new LinkedList<String>();
     }
 
+    private boolean isHighPriority(int gravity){
+        return gravity >= 5 && triage == TriageType.GRAVITY;
+    }
 
-    public void triagePatient(String name, int gravity, VisibleSymptom visibleSymptom) {
+    private boolean isRadiologyRequired(VisibleSymptom symptom){
+        return symptom == VisibleSymptom.BROKEN_BONE || symptom == VisibleSymptom.SPRAIN;
+    }
 
-        if (gravity >= 5 && triage == TriageType.GRAVITY){
+
+    public void triagePatient(String name, int gravity, VisibleSymptom symptom) {
+
+        if (isHighPriority(gravity)){
             doctorPatients.addFirst(name);
+
+            if (isRadiologyRequired(symptom)){
+                radiologyPatients.addFirst(name);
+            }
         }
+
         else{
             doctorPatients.add(name);
-        }
 
-        if (visibleSymptom == VisibleSymptom.BROKEN_BONE || visibleSymptom == VisibleSymptom.SPRAIN ){
-            radiologyPatients.add(name);
+            if (isRadiologyRequired(symptom)){
+                radiologyPatients.add(name);
+            }
         }
     }
 }
